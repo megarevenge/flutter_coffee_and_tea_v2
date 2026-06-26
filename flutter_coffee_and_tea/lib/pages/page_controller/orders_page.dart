@@ -46,7 +46,7 @@ class OrdersPage extends StatelessWidget {
         backgroundColor: const Color(0xff8A5F41),
         elevation: 0,
       ),
-      backgroundColor: Color(0xffF3E4C9),
+      backgroundColor: Colors.white,
       body: ValueListenableBuilder<Map<String, Map<String, dynamic>>>(
         valueListenable: cartNotifier,
         builder: (context, cartMap, child) {
