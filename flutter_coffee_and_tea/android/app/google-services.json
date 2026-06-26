@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "519892758071",
+    "project_id": "flutter-coffee-and-tea-app",
+    "storage_bucket": "flutter-coffee-and-tea-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519892758071:android:1a2d6839de128a046d59b2",
+        "android_client_info": {
+          "package_name": "com.example.flutter_coffee_and_tea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519892758071-os7h04aufn1b9k7qhfkki0umcm4a1g8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmTgVkCw0jD8TNyKqjpHUvHLV3cqcOAUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519892758071-os7h04aufn1b9k7qhfkki0umcm4a1g8h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "519892758071-itgjgk0s45n7oksvtsd1q1lfn53vv36d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterCoffeeAndTea"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
