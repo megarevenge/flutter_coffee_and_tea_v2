@@ -21,21 +21,18 @@ class CheckoutPage extends StatelessWidget {
         title: const Text(
           'Orders',
           style: TextStyle(
-            color: Colors.white,
             fontSize: 24,
             fontWeight: FontWeight.w400,
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xff8A5F41),
         elevation: 0,
         // Custom Back arrow button layout
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: const Color(0xffEFE5D3), // Beige background color match
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -139,7 +136,6 @@ class CheckoutPage extends StatelessWidget {
                         // Handle final checkout processing payment step
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff8A5F41),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),

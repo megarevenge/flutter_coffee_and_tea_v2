@@ -15,12 +15,10 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         title: const Text(
           'Search',
-          style: TextStyle(color: Color(0xffF3E4C9), fontSize: 25),
+          style: TextStyle(fontSize: 25),
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xff8A5F41),
       ),
-      backgroundColor: Colors.white, 
       body: GestureDetector(
         behavior: HitTestBehavior.opaque, // Ensures taps pass through and register on empty spaces
         onTap: () {

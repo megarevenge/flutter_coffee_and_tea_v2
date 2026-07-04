@@ -37,16 +37,13 @@ class OrdersPage extends StatelessWidget {
         title: const Text(
           'Your Orders',
           style: TextStyle(
-            color: Color(0xffF3E4C9),
             fontSize: 24,
             fontWeight: FontWeight.w400,
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xff8A5F41),
         elevation: 0,
       ),
-      backgroundColor: Colors.white,
       body: ValueListenableBuilder<Map<String, Map<String, dynamic>>>(
         valueListenable: cartNotifier,
         builder: (context, cartMap, child) {
@@ -168,7 +165,6 @@ class OrdersPage extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff8A5F41),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),

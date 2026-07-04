@@ -16,7 +16,6 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   late PageController _pageController;
 
-  // 1. Define the central cart notifier matching your ItemCard map structure
   final ValueNotifier<Map<String, Map<String, dynamic>>> _cartNotifier =
       ValueNotifier<Map<String, Map<String, dynamic>>>({});
 
@@ -38,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
-      backgroundColor: Colors.white,
       body: GlassPage(
         child: PageView(
           controller: _pageController,
@@ -48,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             });
           },
           children: [
-            HomeContentPage(cartNotifier: _cartNotifier,),
+            HomeContentPage(cartNotifier: _cartNotifier),
             SearchPage(),
             OrdersPage(cartNotifier: _cartNotifier),
             ProfilePage(),
@@ -57,9 +55,11 @@ class _HomePageState extends State<HomePage> {
       ),
 
       bottomNavigationBar: GlassBottomBar(
-        selectedIconColor: const Color(0xff8A5F41),
-        unselectedIconColor: const Color(0xffA77F60),
-        settings: LiquidGlassSettings(glassColor: Colors.white),
+        selectedIconColor: Theme.of(context).colorScheme.secondary,
+        unselectedIconColor: Theme.of(context).colorScheme.onSurfaceVariant,
+        settings: LiquidGlassSettings(
+          glassColor: Theme.of(context).colorScheme.surface,
+        ),
         enableBlend: false,
         interactionGlowRadius: 0,
         selectedIndex: _selectedIndex,
@@ -96,13 +96,13 @@ class _HomePageState extends State<HomePage> {
                   (sum, itemInfo) => sum + (itemInfo['quantity'] as int? ?? 0),
                 );
                 return Stack(
-                  clipBehavior: Clip.none, 
+                  clipBehavior: Clip.none,
                   children: [
                     const Icon(Icons.receipt_rounded),
                     // Only render badge overlay if there's actually items in the user's cart
                     if (totalItems > 0)
                       Positioned(
-                        right: -4, 
+                        right: -4,
                         top: -4,
                         child: Container(
                           padding: const EdgeInsets.all(4),

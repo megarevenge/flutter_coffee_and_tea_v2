@@ -52,13 +52,8 @@ class _HomeContentPageState extends State<HomeContentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Address',
-          style: TextStyle(color: Color(0xffF3E4C9), fontSize: 25),
-        ),
-        backgroundColor: const Color(0xff8A5F41),
+        title: const Text('Address', style: TextStyle(fontSize: 25)),
       ),
-      backgroundColor: Colors.white,
       body: GlassPage(
         child: SingleChildScrollView(
           child: Column(
@@ -66,8 +61,8 @@ class _HomeContentPageState extends State<HomeContentPage> {
             children: [
               const SizedBox(height: 20),
 
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
                 child: SizedBox(
                   height: 30,
                   child: Align(
@@ -77,7 +72,7 @@ class _HomeContentPageState extends State<HomeContentPage> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xff8A5F41),
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                   ),
@@ -118,8 +113,8 @@ class _HomeContentPageState extends State<HomeContentPage> {
 
               const SizedBox(height: 20),
 
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
                 child: SizedBox(
                   height: 30,
                   child: Align(
@@ -129,7 +124,7 @@ class _HomeContentPageState extends State<HomeContentPage> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xff8A5F41),
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                   ),

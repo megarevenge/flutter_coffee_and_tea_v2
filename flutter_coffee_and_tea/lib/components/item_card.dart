@@ -80,7 +80,7 @@ class _ItemCardState extends State<ItemCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey.shade100,
+      color: Theme.of(context).colorScheme.surfaceVariant,
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
@@ -97,16 +97,16 @@ class _ItemCardState extends State<ItemCard> {
                     width: double.infinity,
                     height: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(12),
                       ),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Icon(
                         Icons.coffee,
                         size: 40,
-                        color: Color(0xff8A5F41),
+                        color: Theme.of(context).colorScheme.secondaryContainer,
                       ),
                     ),
                   ),

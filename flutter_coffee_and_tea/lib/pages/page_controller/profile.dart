@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_coffee_and_tea/services/auth_service.dart';
+import 'package:flutter_coffee_and_tea/services/theme_service.dart';
 import 'package:liquid_glass_widgets/widgets/shared/glass_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -11,6 +12,24 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String _themeSetting = 'system'; 
+
+  @override
+  void initState() {
+    super.initState();
+    _loadThemePreference();
+  }
+
+  // READ the string preference via ThemeService
+  void _loadThemePreference() async {
+    final saved = await ThemeService.getSavedSetting();
+    if (mounted) {
+      setState(() {
+        _themeSetting = saved;
+      });
+    }
+  }
+
   // Grab the currently authenticated Firebase user instance
   final User? user = FirebaseAuth.instance.currentUser;
 
@@ -18,6 +37,17 @@ class _ProfilePageState extends State<ProfilePage> {
   void signOut() async {
     await FirebaseAuth.instance.signOut();
     await AuthService().signOut();
+  }
+
+  // WRITE via ThemeService — updates SharedPreferences AND the global ValueNotifier
+  void _updateTheme(String newTheme) async {
+    setState(() {
+      _themeSetting = newTheme;
+    });
+    await ThemeService.updateTheme(newTheme);
+
+    // Close the dialog box automatically after selection
+    if (mounted) Navigator.pop(context);
   }
 
   @override
@@ -34,16 +64,13 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text(
           'Profile',
           style: TextStyle(
-            color: Color(0xffF3E4C9),
             fontSize: 25,
             fontWeight: FontWeight.w400,
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xff8A5F41),
         elevation: 0,
       ),
-      backgroundColor: Colors.white,
       body: GlassPage(
         child: SingleChildScrollView(
           child: Padding(
@@ -91,7 +118,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 16),
 
-                // Greeting Header using Firebase name/email parsing
                 Text(
                   'Welcome, $userName',
                   style: const TextStyle(
@@ -102,7 +128,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 32),
 
-                // 2. LIVE ACCOUNT INFORMATION FIELDS
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -117,7 +142,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 12),
 
-                // Real Dynamic Email Address from Firebase Auth
                 _buildInfoTile(
                   icon: Icons.email_rounded,
                   title: 'Email Address',
@@ -125,7 +149,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 12),
 
-                // Real Dynamic Phone Number from Firebase Auth
                 _buildInfoTile(
                   icon: Icons.phone_rounded,
                   title: 'Phone Number',
@@ -133,7 +156,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 40),
 
-                // 3. ACTIONS PANEL (Includes redundant Sign Out trigger)
                 _buildMenuButton(
                   icon: Icons.history_rounded,
                   title: 'Past Orders History',
@@ -143,6 +165,67 @@ class _ProfilePageState extends State<ProfilePage> {
                   icon: Icons.location_on_rounded,
                   title: 'Delivery Addresses',
                   onTap: () {},
+                ),
+                _buildMenuButton(
+                  icon: Icons
+                      .palette_rounded, // Swapped to a palette icon for themes!
+                  title: 'Theme',
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        // StatefulBuilder allows the radio buttons to visually update inside the dialog
+                        return StatefulBuilder(
+                          builder: (context, setDialogState) {
+                            return SimpleDialog(
+                              title: const Text('Choose Theme'),
+                              children: [
+                                RadioListTile<String>(
+                                  title: const Text('System Default'),
+                                  value: 'system',
+                                  // ignore: deprecated_member_use
+                                  groupValue: _themeSetting,
+                                  // ignore: deprecated_member_use
+                                  onChanged: (value) {
+                                    setDialogState(
+                                      () => _themeSetting = value!,
+                                    );
+                                    _updateTheme(value!);
+                                  },
+                                ),
+                                RadioListTile<String>(
+                                  title: const Text('Light Theme'),
+                                  value: 'light',
+                                  // ignore: deprecated_member_use
+                                  groupValue: _themeSetting,
+                                  // ignore: deprecated_member_use
+                                  onChanged: (value) {
+                                    setDialogState(
+                                      () => _themeSetting = value!,
+                                    );
+                                    _updateTheme(value!);
+                                  },
+                                ),
+                                RadioListTile<String>(
+                                  title: const Text('Dark Theme'),
+                                  value: 'dark',
+                                  // ignore: deprecated_member_use
+                                  groupValue: _themeSetting,
+                                  // ignore: deprecated_member_use
+                                  onChanged: (value) {
+                                    setDialogState(
+                                      () => _themeSetting = value!,
+                                    );
+                                    _updateTheme(value!);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
                 ),
                 _buildMenuButton(
                   icon: Icons.logout_rounded,
@@ -209,7 +292,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  // Component Builder for Interactive Actions
   Widget _buildMenuButton({
     required IconData icon,
     required String title,
